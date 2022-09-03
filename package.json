@@ -1,0 +1,20 @@
+{
+  "name": "firtal-test",
+  "version": "1.0.0",
+  "description": "Test project for Firtal",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./scss:./css --style compressed"
+  },
+  "repository": "git+https://github.com/adorjand/firtal-test.git",
+  "author": "Adorján Daczó",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adorjand/firtal-test/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "2.7.1",
+    "sass": "1.54.8"
+  }
+}
