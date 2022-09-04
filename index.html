@@ -2,13 +2,82 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta name="description" content="A form where users can provide their credit/debit card details." />
         <title>Card Info</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <link rel="stylesheet" href="css/main.css" />
     </head>
 
     <body>
-        <h1>Hello world!</h1>
-        <script src="js/main.js"></script>
+        <main>
+            <aside>
+                <div class="card front" style="display: flex; flex-direction: column; justify-content: space-between">
+                    <div class="logo">
+                        <span class="section-one"></span>
+                        <span class="section-two"></span>
+                    </div>
+                    <div>
+                        <span class="number">0000 0000 0000 0000</span>
+                        <div class="footer">
+                            <span>Jane Appleseed</span>
+                            <span>00/00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card back"></div>
+            </aside>
+            <section>
+                <div>
+                    <form id="cardForm">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="cardholderName">Cardholder name</label>
+                                <input
+                                    type="text"
+                                    id="cardholderName"
+                                    placeholder="e.g. Jane Appleseed"
+                                    autofocus
+                                    tabindex="0" />
+                            </div>
+                            <div class="form-group">
+                                <label for="cardNumber">Card number</label>
+                                <input
+                                    type="text"
+                                    id="cardNumber"
+                                    placeholder="e.g. 1234 5678 9123 0000" />
+                            </div>
+                            <div class="two-column-grid large-gap">
+                                <div class="form-group">
+                                    <label for="expMonth">Exp. date (mm/yy)</label>
+                                    <div class="two-column-grid small-gap">
+                                        <input
+                                            type="text"
+                                            id="expMonth"
+                                            placeholder="MM"
+                                            data-project-error="#expDateErrorPlaceholder" />
+                                        <input
+                                            type="text"
+                                            id="expYear"
+                                            placeholder="YY"
+                                            aria-label="Exp. year"
+                                            data-project-error="#expDateErrorPlaceholder" />
+                                    </div>
+                                    <div id="expDateErrorPlaceholder"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvc">CVC</label>
+                                    <input type="text" id="cvc" placeholder="e.g. 123" />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <button type="submit" class="button">Confirm</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <script type="module" src="js/main.js"></script>
     </body>
 </html>
