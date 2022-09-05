@@ -1,6 +1,8 @@
+@import "variables";
+
 body {
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: $light-gray;
     display: flex;
     justify-content: center;
     min-height: 100vh;
@@ -8,210 +10,374 @@ body {
 
 main {
     align-items: stretch;
-    background-color: #fff;
+    background-color: $white;
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     display: flex;
-    height: 100vh;
-    max-height: 900px;
-    max-width: 1440px;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
     width: 100%;
 
-    aside {
+    @media only screen and (min-width: $lg) {
+        flex-direction: row;
+        height: 100vh;
+        max-height: $max-panel-height;
+        min-height: auto;
+    }
+
+    @media only screen and (min-width: $xl) {
+        max-width: $max-panel-width;
+    }
+}
+
+aside {
+    background-color: $primary-900;
+    height: 240px;
+    position: relative;
+    z-index: 3;
+
+    @media only screen and (min-width: $lg) {
         align-items: end;
         background: url("/images/bg-aside.png") no-repeat right center;
         display: flex;
-        //flex-basis: 33.5%;
         flex-direction: column;
+        height: auto;
         justify-content: center;
         width: 33.5%;
     }
+}
 
-    section {
+section {
+    position: relative;
+    flex-grow: 1;
+
+    @media only screen and (min-width: $lg) {
+        flex-grow: unset;
+        width: 66.5%;
+    }
+}
+
+.content-wrapper {
+    background-color: $white;
+    bottom: 0;
+    display: flex;
+    left: 0;
+    justify-content: center;
+    padding: 70px 30px 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    @media only screen and (min-width: $lg) {
+        align-items: center;
+        padding: 0;
+    }
+}
+
+.content {
+    max-width: 380px;
+    width: 100%;
+
+    @media only screen and (min-width: $lg) {
+        transform: translateX(110px);
+    }
+
+    @media only screen and (min-width: $xl) {
+        transform: translateX(60px);
+    }
+}
+
+.first-step {
+    animation: slide-from-bottom-fade 0.4s ease-in-out;
+    position: relative;
+    z-index: 1;
+
+    @media only screen and (min-width: $lg) {
+        position: absolute;
+    }
+
+    &.hide {
+        animation: slide-to-top-fade 0.2s ease-in-out forwards;
+    }
+}
+
+.second-step {
+    opacity: 0;
+
+    .content {
         align-items: center;
         display: flex;
-        //flex-basis: 66.5%;
-        justify-content: center;
-        width: 66.5%;
+        flex-direction: column;
 
-        & > div {
-            transform: translateX(60px);
-            width: 380px;
+        @media only screen and (min-width: $lg) {
+            margin-top: 200px;
+        }
+    }
+
+    .info {
+        opacity: 0;
+        text-align: center;
+        width: 100%;
+
+        .title {
+            color: $primary-900;
+            font-size: 26px;
+            letter-spacing: 5px;
+            margin: 40px 0 0;
+            text-transform: uppercase;
+        }
+
+        .message {
+            color: $dark-gray;
+            font-size: 18px;
+            margin: 20px 0 50px;
+        }
+    }
+
+    &.show {
+        animation: fade-in 0.2s ease-in-out forwards;
+        z-index: 2;
+
+        .checkmark-badge {
+            animation: scale 0.3s ease-in-out;
+        }
+
+        .content {
+            @media only screen and (min-width: $lg) {
+                animation: animate-second-step 0.2s ease-in-out 1s forwards;
+            }
+
+            .info {
+                animation: fade-in 0.2s ease-in-out 1s forwards;
+            }
         }
     }
 }
 
 .card {
-    background-color: #f0f0f0;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0.2s;
+    animation-fill-mode: forwards;
+    background-color: $light-gray;
     border-radius: 10px;
     box-shadow: 0 50px 50px -15px rgb(0 0 0 / 0.1);
-    height: 245px;
-    width: 447px;
+    color: $white;
+    font-size: 10px;
+    height: $card-height-mobile;
+    letter-spacing: 1px;
+    opacity: 0;
+    position: absolute;
+    width: $card-width-mobile;
+
+    @media only screen and (min-width: $lg) {
+        font-size: 14px;
+        height: $card-height;
+        letter-spacing: 2px;
+        position: relative;
+        width: $card-width;
+    }
 
     &.front {
+        animation-name: slide-in-card-front-mobile;
+        animation-duration: 0.4s;
         background: url("/images/bg-card-front.png") no-repeat;
         box-sizing: border-box;
-        color: #fff;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        letter-spacing: 2px;
-        margin-bottom: 35px;
-        padding: 28px 32px;
+        left: 50%;
+        margin-left: -(calc($card-width-mobile / 2) + 20px);
+        padding: 20px 18px;
         text-transform: uppercase;
-        transform: translateX(128px);
+        top: 50%;
+        z-index: 1;
+
+        @media only screen and (min-width: $lg) {
+            animation-name: slide-in-card-front;
+            animation-duration: 0.4s;
+            margin-bottom: 35px;
+            left: 0;
+            padding: 28px 32px;
+            transform: translateX(128px);
+            top: 0;
+        }
 
         .logo {
             align-items: center;
             display: flex;
 
             .section-one {
-                background-color: #fff;
+                background-color: $white;
                 border-radius: 100%;
                 display: block;
-                height: 48px;
-                margin-right: 14px;
-                width: 48px;
+                height: 32px;
+                margin-right: 8px;
+                width: 32px;
+
+                @media only screen and (min-width: $lg) {
+                    height: 48px;
+                    margin-right: 14px;
+                    width: 48px;
+                }
             }
 
             .section-two {
-                border: 1px solid #fff;
+                border: 1px solid $white;
                 border-radius: 100%;
                 display: block;
-                height: 18px;
-                width: 18px;
-            }
+                height: 14px;
+                width: 14px;
 
+                @media only screen and (min-width: $lg) {
+                    height: 18px;
+                    width: 18px;
+                }
+            }
+        }
+
+        .cardholder {
+            max-width: 60%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .number {
             display: block;
-            font-size: 28px;
-            letter-spacing: 3px;
-            margin-bottom: 28px;
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+
+            @media only screen and (min-width: $lg) {
+                font-size: 28px;
+                letter-spacing: 3px;
+                margin-bottom: 28px;
+            }
         }
 
         .footer {
             align-items: center;
             display: flex;
-            font-size: 14px;
             justify-content: space-between;
         }
     }
 
     &.back {
+        animation-name: slide-in-card-back-mobile;
+        animation-duration: 0.5s;
         background: url("/images/bg-card-back.png") no-repeat;
-        transform: translateX(222px);
-    }
-}
+        background-size: cover;
+        left: 50%;
+        margin-left: -(calc(($card-width-mobile / 2) - 20px));
+        margin-top: -(calc(($card-width-mobile / 2) - 55px));
+        position: relative;
+        top: 50%;
 
-fieldset {
-    border: none;
-    margin: 0 0 15px;
-    padding: 0;
-}
-
-.form-group {
-    margin-bottom: 27px;
-
-    label {
-        color: hsl(278, 68%, 11%);
-        display: block;
-        font-size: 12px;
-        letter-spacing: 2px;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-    }
-
-    input {
-        background-image: linear-gradient(#fff, #fff), linear-gradient(to right, hsl(249, 99%, 64%), hsl(278, 94%, 30%));
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
-        border: 1px solid hsl(270, 3%, 87%);
-        border-radius: 8px;
-        box-sizing: border-box;
-        font-size: 18px;
-        line-height: 22px;
-        padding: 10px 16px;
-        width: 100%;
-
-        &.has-error {
-            border-color: hsl(0, 100%, 40%);
+        @media only screen and (min-width: $lg) {
+            animation-name: slide-in-card-back;
+            animation-duration: 0.5s;
+            left: 0;
+            margin: 0;
+            top: 0;
         }
 
-        &:focus {
-            border-color: transparent;
-            outline: none;
+        .cvc {
+            display: inline-block;
+            line-height: 20px;
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            @media only screen and (min-width: $lg) {
+                right: 60px;
+                transform: translateY(-60%);
+            }
         }
-
-        &::placeholder {
-            color: hsl(270, 3%, 87%);
-            opacity: 1;
-        }
-
-        &:-ms-input-placeholder {
-            color: hsl(270, 3%, 87%);
-        }
-
-        &::-ms-input-placeholder {
-            color: hsl(270, 3%, 87%);
-        }
-    }
-
-    .error-message {
-        color: hsl(0, 100%, 40%);
-        display: block;
-        font-size: 12px;
-        margin-top: 10px;
-    }
-}
-
-.button {
-    background-color: hsl(278, 68%, 11%);
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 0 #0000;
-    color: hsl(270, 3%, 87%);
-    cursor: pointer;
-    display: block;
-    font-size: 18px;
-    line-height: 20px;
-    padding: 16px;
-    transform: scale(100%);
-    transition-property: background-color, box-shadow, color, transform;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-    width: 100%;
-
-    &:hover {
-        background-color: hsl(278, 68%, 20%);
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
-        color: hsl(278, 68%, 90%);
-        transform: scale(101%);
-    }
-
-    &:focus {
-        background-color: hsl(278, 68%, 25%);
-        color: hsl(278, 68%, 90%);
-        outline: none;
-    }
-
-    &:active {
-        background-color: hsl(278, 68%, 15%);
-        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
-        color: hsl(270, 3%, 87%);
-        transform: scale(100%);
     }
 }
 
 .two-column-grid {
     display: grid;
+    gap: 10px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    &.small-gap {
-        gap: 10px;
-    }
 
     &.large-gap {
         gap: 20px;
+    }
+}
+
+.loading.show {
+    animation: slide-from-bottom-fade 0.4s ease-in-out 0.2s forwards;
+    display: block;
+    height: 68px;
+    left: 50%;
+    margin-left: -34px;
+    opacity: 0;
+    position: absolute;
+    top: 8%;
+    width: 68px;
+
+    @media only screen and (min-width: $sm) {
+        top: 10%;
+    }
+
+    @media only screen and (min-width: $lg) {
+        margin: -34px 0 0 70px;
+        top: 50%;
+    }
+
+    @media only screen and (min-width: $xl) {
+        margin: -40px 0 0 20px;
+    }
+
+    &::before {
+        animation: spin 0.5s linear infinite;
+        background-image: linear-gradient($white, $white),
+            linear-gradient(to right, $white, $white, $primary-400, $primary-500, $primary-500);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+        border: 6px solid transparent;
+        border-radius: 100%;
+        content: "";
+        display: block;
+        height: 56px;
+        width: 56px;
+    }
+}
+
+.checkmark-badge {
+    background-image: linear-gradient(to bottom, $primary-400, $primary-500);
+    border-radius: 100%;
+    display: block;
+    height: 80px;
+    position: relative;
+    width: 80px;
+
+    & .checkmark {
+        display: none;
+
+        .second-step.show & {
+            display: block;
+        }
+
+        &.draw:after {
+            animation: checkmark 1s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            transform: scaleX(-1) rotate(135deg);
+        }
+
+        &:after {
+            opacity: 1;
+            height: 20px;
+            width: 10px;
+            transform-origin: left top;
+            border-right: 3px solid #fff;
+            border-top: 3px solid #fff;
+            content: "";
+            margin-left: -12px;
+            left: 50%;
+            top: 50%;
+            position: absolute;
+        }
     }
 }

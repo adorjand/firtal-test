@@ -5,9 +5,15 @@ export const VALIDATORS = {
         },
         errorMessage: "Can't be blank",
     },
+    minLength: {
+        validatorFunction: function (value, minLength) {
+            return value.length >= minLength;
+        },
+        errorMessage: `Must be at least ___variable___ characters`,
+    },
     name: {
         validatorFunction: function (value) {
-            return /^\s*([A-Za-z]+([.] |[-']| )?)+[A-Za-z]+\.?\s*$/.test(value);
+            return /^\s*([A-Za-z]+([.] |[-']| )?)+[A-Za-z]+\.?\s*$/gm.test(value);
         },
         errorMessage:
             "Invalid characters, only letters without diacritics, spaces, periods (.), apostrophes (') and hyphens (-) are allowed",

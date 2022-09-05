@@ -1,0 +1,38 @@
+@import "variables";
+
+.button {
+    background-color: $primary-900;
+    border: none;
+    border-radius: 8px;
+    color: $primary-100;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
+    line-height: 20px;
+    padding: 16px;
+    transform: scale(100%);
+    transition-property: background-color, box-shadow, color, transform;
+    transition-timing-function: cubic-bezier(0.65, 0, 0.45, 1);
+    transition-duration: 200ms;
+    width: 100%;
+
+    &:hover {
+        background-color: $primary-700;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+        color: $primary-200;
+        transform: scale(101%);
+    }
+
+    &:focus {
+        background-color: $primary-600;
+        color: $primary-200;
+        outline: none;
+    }
+
+    &:active {
+        background-color: $primary-800;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+        color: $primary-100;
+        transform: scale(100%);
+    }
+}

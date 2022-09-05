@@ -1,0 +1,70 @@
+@import "variables";
+
+fieldset {
+    border: none;
+    margin: 0 0 10px;
+    padding: 0;
+
+    @media only screen and (min-width: $lg) {
+        margin: 0 0 15px;
+    }
+}
+
+.form-group {
+    margin-bottom: 20px;
+
+    @media only screen and (min-width: $lg) {
+        margin-bottom: 27px;
+    }
+
+    label {
+        color: $primary-900;
+        display: block;
+        font-size: 12px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    input {
+        background-image: linear-gradient($white, $white), linear-gradient(to right, $primary-400, $primary-500);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+        border: 1px solid $primary-100;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 18px;
+        line-height: 22px;
+        padding: 10px 16px;
+        width: 100%;
+
+        &.has-error {
+            border-color: $danger;
+        }
+
+        &:focus {
+            border-color: transparent;
+            outline: none;
+        }
+
+        &::placeholder {
+            color: $gray;
+            opacity: 1;
+        }
+
+        &:-ms-input-placeholder {
+            color: $gray;
+        }
+
+        &::-ms-input-placeholder {
+            color: $gray;
+        }
+    }
+
+    .error-message {
+        color: $danger;
+        display: block;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+}
