@@ -5,6 +5,7 @@ export class FormHandler {
     hasErrors = false;
 
     constructor(form, callback) {
+        // Set fields and check if form element exists
         this.fields = form.fields;
         this.callback = callback;
 
@@ -20,6 +21,7 @@ export class FormHandler {
     initialize() {
         let self = this;
 
+        // Apply extra functionalities for fields
         this.fields.forEach((field) => {
             let fieldElement = document.querySelector(field.selector);
 
@@ -28,12 +30,13 @@ export class FormHandler {
 
                 if (extras !== undefined && extras.length) {
                     extras.forEach((extra) => {
-                        this.initRestriction(fieldElement, extra);
+                        this.initExtra(fieldElement, extra);
                     });
                 }
             }
         });
 
+        // Set a listener for submit, if no errors invoke the callback function
         this.form.addEventListener("submit", function (e) {
             e.preventDefault();
 
@@ -46,7 +49,8 @@ export class FormHandler {
         });
     }
 
-    initRestriction(fieldElement, extra) {
+    initExtra(fieldElement, extra) {
+        // Check if there is a config parameter
         if (Array.isArray(extra)) {
             let param = extra[1];
             extra = extra[0];
@@ -57,6 +61,7 @@ export class FormHandler {
         return extra(fieldElement);
     }
 
+    // Iterate through all the field and check for errors
     validate() {
         this.hasErrors = false;
 
@@ -67,7 +72,7 @@ export class FormHandler {
         });
     }
 
-    // Run the validators defined for each field
+    // Run the validators defined for field
     isValidField(selector, validators) {
         let hasError = false;
         let fieldElement = document.querySelector(selector);
@@ -86,6 +91,7 @@ export class FormHandler {
             if (!hasError && !this.validatorPassed(fieldElement.value, validator)) {
                 let errorMessage = validator.errorMessage;
 
+                // Check if there is a config parameter and use for error message
                 if (Array.isArray(validator)) {
                     let param = validator[1];
                     validator = validator[0];
@@ -102,6 +108,7 @@ export class FormHandler {
     }
 
     validatorPassed(value, validator) {
+        // Extra param
         if (Array.isArray(validator)) {
             let param = validator[1];
             validator = validator[0];
@@ -112,20 +119,26 @@ export class FormHandler {
         return validator.validatorFunction(value);
     }
 
+    // Show error message for fields
     showError(field, message) {
+        // Placeholder if the error needs to be rendered elsewhere (Ex.: exp. date month and year errors)
         let placeholder = field.getAttribute("data-project-error");
 
+        // Create element for error message
         let errorMessage = document.createElement("span");
         errorMessage.classList.add("error-message");
         errorMessage.innerText = message;
 
+        // Set field status
         field.classList.add("has-error");
 
+        // Default error message rendering
         if (!placeholder) {
             field.parentNode.insertBefore(errorMessage, field.nextSibling);
             return;
         }
 
+        //  Render into a specific element
         let placeholderElement = document.querySelector(placeholder);
 
         if (placeholderElement && placeholderElement.childNodes.length === 0) {
@@ -142,12 +155,14 @@ export class FormHandler {
 
     resetForm() {
         this.form.reset();
+        // Trigger change event for all the fields to update the UI (ex. cards)
         document.querySelectorAll("input").forEach((field) => field.dispatchEvent(new Event("change")));
     }
 
     getData() {
         let data = {};
 
+        // Populate date from all the fields
         this.fields.forEach((field) => {
             let fieldElement = document.querySelector(field.selector);
 

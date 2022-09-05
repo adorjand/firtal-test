@@ -2,6 +2,7 @@ import { VALIDATORS } from "./formHandler/validators.js";
 import { EXTRAS } from "./formHandler/extras.js";
 import { FormHandler } from "./formHandler/formHandler.js";
 
+// Configuration object for form functionalities
 const FORM = {
     selector: "#cardForm",
     fields: [
@@ -33,8 +34,10 @@ const FORM = {
     ],
 };
 
+// Create a FormHandler instance passing the configuration and a callback function to call if the form is valid
 let formHandler = new FormHandler(FORM, formIsValid);
 
+// If the form is valid get the form data, process and go to thank you page
 function formIsValid() {
     let cardData = formHandler.getData();
 
@@ -44,22 +47,25 @@ function formIsValid() {
     nextStepTransition();
 }
 
+// From thank you page reset the flow
 document.querySelector("#reset").addEventListener("click", () => {
     formHandler.resetForm();
     resetTransition();
 });
 
+// Small functions to control transition animations
 function nextStepTransition() {
-    document.querySelector(".first-step").classList.add("hide");
-    document.querySelector(".loading").classList.add("show");
+    document.querySelector(".first-step").classList.add("hide"); // hide form
+    document.querySelector(".loading").classList.add("show"); // show loading
 
+    // simulate date process
     setTimeout(() => {
-        document.querySelector(".second-step").classList.add("show");
-        document.querySelector(".loading").classList.remove("show");
+        document.querySelector(".second-step").classList.add("show"); // show thank you page
+        document.querySelector(".loading").classList.remove("show"); // hide loading
     }, 2500);
 }
 
 function resetTransition() {
-    document.querySelector(".first-step").classList.remove("hide");
-    document.querySelector(".second-step").classList.remove("show");
+    document.querySelector(".first-step").classList.remove("hide"); // show form
+    document.querySelector(".second-step").classList.remove("show"); // hide thank you page
 }

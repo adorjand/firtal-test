@@ -38,7 +38,7 @@ aside {
 
     @media only screen and (min-width: $lg) {
         align-items: end;
-        background: url("/images/bg-aside.png") no-repeat right center;
+        background: url("../images/bg-aside.png") no-repeat right center;
         display: flex;
         flex-direction: column;
         height: auto;
@@ -180,7 +180,7 @@ section {
     &.front {
         animation-name: slide-in-card-front-mobile;
         animation-duration: 0.4s;
-        background: url("/images/bg-card-front.png") no-repeat;
+        background: url("../images/bg-card-front.png") no-repeat;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -265,7 +265,7 @@ section {
     &.back {
         animation-name: slide-in-card-back-mobile;
         animation-duration: 0.5s;
-        background: url("/images/bg-card-back.png") no-repeat;
+        background: url("../images/bg-card-back.png") no-repeat;
         background-size: cover;
         left: 50%;
         margin-left: -(calc(($card-width-mobile / 2) - 20px));
